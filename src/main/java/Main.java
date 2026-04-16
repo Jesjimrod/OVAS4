@@ -19,7 +19,7 @@ public class Main {
 
             ps.setString(1, nombre);
             ps.setInt(2, edad);
-            ps.setString()
+            ps.setString(3,  curso);
 
         } catch (SQLException e) {
             System.out.println("Error en el SELECT");
