@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,22 +8,23 @@ public class Main {
         String usuario = "alumno";
         String password = "alumno"; //OJO AQUI CON EL USUARIO Y LA CONTRASEÑA!!!
 
-        String nombre = "Pedro";
-        int edad = 21;
-        String curso = "1DAW";
-        double notaMedia = 6.75;
+        //Scanner sc = new Scanner(System.in);
 
-        String sql = "INSERT INTO alumnos (nombre, edad, curso, nota_media) VALUES (?, ?, ?, ?)";
+        int idAlumno = 1;
+        double nuevaNota = 8.90;
+
+        String sql = "UPDATE alumnos SET nota_media = ? WHERE id = ?";
 
         try (Connection conexion = DriverManager.getConnection(url, usuario, password);
             PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setDouble(1, nuevaNota);
+            ps.setInt(2, idAlumno);
 
-            ps.setString(1, nombre);
-            ps.setInt(2, edad);
-            ps.setString(3,  curso);
+            int filas = ps.executeUpdate();
+            System.out.println("Filas actualizadas: " + filas);
 
         } catch (SQLException e) {
-            System.out.println("Error en el SELECT");
+            System.out.println("Error en el UPDATE");
             System.out.println("Mensaje: " + e.getMessage());
         }
     }
